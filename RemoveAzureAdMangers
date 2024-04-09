@@ -1,0 +1,16 @@
+# Define the path to the CSV file
+$csvPath = "C:\Users\CaseyAlenza\Desktop\test.new.csv"
+
+# Import the CSV file
+$objectIDs = Import-Csv -Path $csvPath | Select-Object -ExpandProperty 'Object ID'
+
+# Connect to Azure AD (replace with your authentication method)
+ Connect-AzureAD
+
+# Loop through each object ID and remove the user manager
+foreach ($objectId in $objectIDs) {
+    Remove-AzureADUserManager -ObjectID $objectId
+}
+
+# Disconnect from Azure AD (replace with your disconnection method)
+ Disconnect-AzureAD
